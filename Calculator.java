@@ -184,6 +184,9 @@ public class Calculator implements ActionListener{
 	public double number_reader(){
 		Double num;
 		String s;
+		if(text.getText().trim().equals("")){
+			text.setText("0");
+		}
 		s = text.getText();
 		num = Double.valueOf(s);
 		
