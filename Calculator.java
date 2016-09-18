@@ -21,6 +21,7 @@ public class Calculator implements ActionListener{
 	JButton but8 = new JButton("8");
 	JButton but9 = new JButton("9");
 	JButton but0 = new JButton("0");
+	JButton butRadix = new JButton(".");
 
 	JButton butadd = new JButton("+");
 	JButton butsub = new JButton("-");
@@ -37,7 +38,8 @@ public class Calculator implements ActionListener{
 		
 		Calculator n = new Calculator();
 		n.ui();
-		
+		int x = 20 + 50 * 40;
+		System.out.println(x);
 	}
 	
 	public void ui(){
@@ -59,6 +61,7 @@ public class Calculator implements ActionListener{
 		panel.add(but8);
 		panel.add(but9);
 		panel.add(but0);
+		panel.add(butRadix);
 		
 		panel.add(butadd);
 		panel.add(butsub);
@@ -77,12 +80,14 @@ public class Calculator implements ActionListener{
 		but8.addActionListener(this);
 		but9.addActionListener(this);
 		but0.addActionListener(this);
+		butRadix.addActionListener(this);
 		butadd.addActionListener(this);
 		butsub.addActionListener(this);
 		butmulti.addActionListener(this);
 		butdiv.addActionListener(this);
 		buteq.addActionListener(this);
 		butclear.addActionListener(this);
+		
 	}
 
 	@Override
@@ -91,8 +96,8 @@ public class Calculator implements ActionListener{
 		Object source = e.getSource();
 		
 		if(source == butclear){
-			number1 = 0.0;
-			number2 = 0.0;
+			number1 = null;
+			number2 = null;
 			text.setText("");
 		}
 		
@@ -126,38 +131,142 @@ public class Calculator implements ActionListener{
 		if(source == but0){
 			text.append("0");
 		}
+		if(source == butRadix){
+			text.append(".");
+		}
 		if(source == butadd){
-			number1 = number_reader();
-			text.setText("");
+			if(number1 == null){
+				number1 = number_reader();
+				text.setText("");		
+			}else{
+				number2 = number_reader();
+				
+				if(addc>0){
+					result = number1 + number2;
+					addc = 0;
+				}
+				if(subc>0){
+					result = number1 - number2;
+					subc = 0;
+				}
+				if(multic>0){
+					result = number1 * number2;
+					multic = 0;
+				}
+				if(divc>0){
+					result = number1 / number2;
+					divc = 0;
+				}
+				
+				number1 = result;
+				text.setText("");
+			}
+			
 			addc = 1;
 			subc = 0;
 			multic = 0;
 			divc = 0;
 		}
 		if(source == butsub){
-			number1 = number_reader();
-			text.setText("");
+			if(number1 == null){
+				number1 = number_reader();
+				text.setText("");
+			}else{
+				number2 = number_reader();
+
+				if(addc>0){
+					result = number1 + number2;
+					addc = 0;
+				}
+				if(subc>0){
+					result = number1 - number2;
+					subc = 0;
+				}
+				if(multic>0){
+					result = number1 * number2;
+					multic = 0;
+				}
+				if(divc>0){
+					result = number1 / number2;
+					divc = 0;
+				}
+				
+				number1 = result;
+				text.setText("");
+			}
+			
 			addc = 0;
 			subc = 1;
 			multic = 0;
 			divc = 0;
 		}
 		if(source == butmulti){
-			number1 = number_reader();
-			text.setText("");
+			if(number1 == null){
+				number1 = number_reader();
+				text.setText("");
+			}else{
+				number2 = number_reader();
+				
+				if(addc>0){
+					result = number1 + number2;
+					addc = 0;
+				}
+				if(subc>0){
+					result = number1 - number2;
+					subc = 0;
+				}
+				if(multic>0){
+					result = number1 * number2;
+					multic = 0;
+				}
+				if(divc>0){
+					result = number1 / number2;
+					divc = 0;
+				}
+				
+				number1 = result;
+				text.setText("");
+			}
+			
 			addc = 0;
 			subc = 0;
 			multic = 1;
 			divc = 0;
 		}
 		if(source == butdiv){
-			number1 = number_reader();
-			text.setText("");
+			if(number1 == null){
+				number1 = number_reader();
+				text.setText("");
+			}else{
+				number2 = number_reader();
+				
+				if(addc>0){
+					result = number1 + number2;
+					addc = 0;
+				}
+				if(subc>0){
+					result = number1 - number2;
+					subc = 0;
+				}
+				if(multic>0){
+					result = number1 * number2;
+					multic = 0;
+				}
+				if(divc>0){
+					result = number1 / number2;
+					divc = 0;
+				}
+				
+				number1 = result;
+				text.setText("");
+			}
+			
 			addc = 0;
 			subc = 0;
 			multic = 0;
 			divc = 1;
-		}	
+		}
+		
 		
 		if(source == buteq){
 			number2 = number_reader();
@@ -182,7 +291,7 @@ public class Calculator implements ActionListener{
 	}
 	
 	public double number_reader(){
-		Double num;
+		double num;
 		String s;
 		if(text.getText().trim().equals("")){
 			text.setText("0");
